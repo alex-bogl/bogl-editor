@@ -27,3 +27,5 @@ resources/
 *.bgl
 
 *.swp
+
+*.idea
