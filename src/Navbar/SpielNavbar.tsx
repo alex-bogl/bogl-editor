@@ -15,7 +15,10 @@ import {extractGameNameFromProgram} from '../Utilities/ProgramUtils'
 import './SpielNavbar.css';
 
 const SpielNavbar = (props) => {
-
+    // TODO: set up a backend API endpoint to list available examples
+    const examplePrograms = ["TicTacToe", "SpaceInvader", "Adventure", "ConnectFour", "GuessMyNumber",
+        "Notakto", "RockPaperScissors"];
+    
     let [didShare, setDidShare] = React.useState(false);
 
     // Themes available
@@ -30,7 +33,24 @@ const SpielNavbar = (props) => {
         return navitems;
     }
 
-
+    const setExampleProgramQuery = (exampleProgramName: string) => {
+        const params = new URLSearchParams(window.location.search);
+        params.set("p", `${exampleProgramName}`);
+        // 1 loads program only, no prelude (see App.performLoad())
+        params.set("s", "1"); 
+        const newUrl = `${window.location.pathname}?${params.toString()}`;
+        window.history.pushState({}, '', newUrl);
+        props.reset();
+    };
+    
+    function getExamplePrograms() {
+        let navitems: Array<JSX.Element> = [];
+        for (let i = 0; i < examplePrograms.length; i++) {
+            navitems.push(<NavDropdown.Item key={i} onClick={() => setExampleProgramQuery(examplePrograms[i])}>{ examplePrograms[i] }</NavDropdown.Item>);
+        }
+        return navitems;
+    }
+    
     function getShareOption() {
 
       // verify changes haven't been made
@@ -104,6 +124,10 @@ const SpielNavbar = (props) => {
 
                     <NavDropdown title="Themes" id="basic-nav-dropdown" className="align-navlink">
                         {getThemes()}
+                    </NavDropdown>
+
+                    <NavDropdown title="Example Programs" id="basic-nav-dropdown-examples" className="align-navlink">
+                        {getExamplePrograms()}
                     </NavDropdown>
                 </Nav>
                 <Form inline>
