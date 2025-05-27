@@ -105,15 +105,6 @@ const SpielNavbar = (props) => {
                     <NavDropdown title="Themes" id="basic-nav-dropdown" className="align-navlink">
                         {getThemes()}
                     </NavDropdown>
-
-                    <Nav.Link className="align-navlink" href="/tutorials/">
-                        Tutorials
-                    </Nav.Link>
-
-                    <Nav.Link className="align-navlink" href="/tutorials/GettingStarted">
-                        Getting Started
-                    </Nav.Link>
-
                 </Nav>
                 <Form inline>
                   {getShareOption()}
