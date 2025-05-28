@@ -12,7 +12,7 @@ RUN npm run build
 
 # --- Stage 2: Serve with Nginx ---
 FROM nginx:alpine
-
+ARG ENVIRONMENT=production
 COPY --from=builder /app/build /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
+COPY nginx.${ENVIRONMENT}.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80 443
